@@ -5,114 +5,43 @@
 
 class CropPricesManager {
     constructor() {
-        this.pricesGrid = document.getElementById('pricesGrid');
-        this.stateSelect = document.getElementById('stateSelect');
-        this.districtSelect = document.getElementById('districtSelect');
+        this.pricesGrid = null;
+        this.stateSelect = null;
+        this.districtSelect = null;
         this.apiUrl = 'http://localhost:3000/api';
         this.prices = [];
+        this.mockData = this.initMockData();
         this.init();
     }
 
     init() {
         try {
-            if (this.stateSelect && this.districtSelect && this.pricesGrid) {
-                this.stateSelect.addEventListener('change', (e) => this.onStateChange(e));
-                this.districtSelect.addEventListener('change', () => this.loadPrices());
-                this.loadPrices();
-                console.log('✓ Crop Prices Manager initialized');
-            } else {
+            // Get DOM elements
+            this.pricesGrid = document.getElementById('pricesGrid');
+            this.stateSelect = document.getElementById('stateSelect');
+            this.districtSelect = document.getElementById('districtSelect');
+
+            if (!this.pricesGrid || !this.stateSelect || !this.districtSelect) {
                 console.warn('⚠ Missing DOM elements for Crop Prices Manager');
+                return;
             }
+
+            this.stateSelect.addEventListener('change', (e) => this.onStateChange(e));
+            this.districtSelect.addEventListener('change', () => this.loadPrices());
+            
+            // Load default prices for Tamil Nadu
+            this.stateSelect.value = 'tamil-nadu';
+            this.updateDistricts('tamil-nadu');
+            this.loadPrices();
+            
+            console.log('✓ Crop Prices Manager initialized');
         } catch (error) {
             console.error('✗ Crop Prices Manager error:', error);
         }
     }
 
-    onStateChange(event) {
-        try {
-            const state = event.target.value;
-            this.updateDistricts(state);
-            this.loadPrices();
-        } catch (error) {
-            console.error('Error on state change:', error);
-        }
-    }
-
-    updateDistricts(state) {
-        try {
-            const districts = {
-                'tamil-nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruppur', 'Erode', 'Salem'],
-                'karnataka': ['Bangalore', 'Mysore', 'Belgaum', 'Hubli', 'Mangalore'],
-                'maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Aurangabad', 'Nashik'],
-                'punjab': ['Amritsar', 'Ludhiana', 'Jalandhar', 'Patiala', 'Bathinda'],
-                'rajasthan': ['Jaipur', 'Jodhpur', 'Ajmer', 'Bikaner', 'Kota']
-            };
-
-            const districtList = districts[state] || [];
-            if (this.districtSelect) {
-                this.districtSelect.innerHTML = '<option value="">Select District</option>';
-
-                districtList.forEach(district => {
-                    const option = document.createElement('option');
-                    option.value = district;
-                    option.textContent = district;
-                    this.districtSelect.appendChild(option);
-                });
-            }
-        } catch (error) {
-            console.error('Error updating districts:', error);
-        }
-    }
-
-    loadPrices() {
-        try {
-            if (!this.pricesGrid) return;
-
-            const state = this.stateSelect ? this.stateSelect.value : '';
-            const district = this.districtSelect ? this.districtSelect.value : '';
-
-            // Show loading state
-            this.pricesGrid.innerHTML = '<div class="loading-message">Loading prices...</div>';
-
-            // Try to fetch from server, fallback to mock data
-            this.fetchPricesFromServer(state, district)
-                .catch(() => {
-                    console.log('Server unavailable, using mock data');
-                    return this.getMockPrices(state, district);
-                })
-                .then(prices => this.displayPrices(prices))
-                .catch(error => {
-                    console.error('Error in price loading:', error);
-                    this.pricesGrid.innerHTML = '<p>Error loading prices. Using sample data...</p>';
-                    this.displayPrices(this.getMockPricesSync(state, district));
-                });
-
-        } catch (error) {
-            console.error('Error loading prices:', error);
-            if (this.pricesGrid) {
-                this.pricesGrid.innerHTML = '<p>Error loading prices. Please try again.</p>';
-            }
-        }
-    }
-
-    fetchPricesFromServer(state, district) {
-        return fetch(`${this.apiUrl}/prices?state=${state}&district=${district}`)
-            .then(res => {
-                if (!res.ok) throw new Error('Server error');
-                return res.json();
-            });
-    }
-
-    getMockPrices(state, district) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve(this.getMockPricesSync(state, district));
-            }, 500);
-        });
-    }
-
-    getMockPricesSync(state, district) {
-        const mockData = {
+    initMockData() {
+        return {
             'tamil-nadu': {
                 'Chennai': [
                     { id: 1, crop: 'Rice', price: 2500, unit: '50kg', market: 'Koyambedu Market', trend: '↑', change: '+5%' },
@@ -241,9 +170,94 @@ class CropPricesManager {
                 ]
             }
         };
+    }
 
-        // Find matching prices
-        const stateData = mockData[state] || {};
+    onStateChange(event) {
+        try {
+            const state = event.target.value;
+            this.updateDistricts(state);
+            this.loadPrices();
+        } catch (error) {
+            console.error('Error on state change:', error);
+        }
+    }
+
+    updateDistricts(state) {
+        try {
+            const districts = {
+                'tamil-nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruppur', 'Erode', 'Salem'],
+                'karnataka': ['Bangalore', 'Mysore', 'Belgaum', 'Hubli', 'Mangalore'],
+                'maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Aurangabad', 'Nashik'],
+                'punjab': ['Amritsar', 'Ludhiana', 'Jalandhar', 'Patiala', 'Bathinda'],
+                'rajasthan': ['Jaipur', 'Jodhpur', 'Ajmer', 'Bikaner', 'Kota']
+            };
+
+            const districtList = districts[state] || [];
+            if (this.districtSelect) {
+                this.districtSelect.innerHTML = '<option value="">Select District</option>';
+
+                districtList.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    this.districtSelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error updating districts:', error);
+        }
+    }
+
+    loadPrices() {
+        try {
+            if (!this.pricesGrid) return;
+
+            const state = this.stateSelect ? this.stateSelect.value : '';
+            const district = this.districtSelect ? this.districtSelect.value : '';
+
+            // Show loading state
+            this.pricesGrid.innerHTML = '<div class="loading-message">Loading prices...</div>';
+
+            // Try to fetch from server, fallback to mock data
+            this.fetchPricesFromServer(state, district)
+                .catch(() => {
+                    console.log('Server unavailable, using mock data');
+                    return this.getMockPrices(state, district);
+                })
+                .then(prices => this.displayPrices(prices))
+                .catch(error => {
+                    console.error('Error in price loading:', error);
+                    this.pricesGrid.innerHTML = '<p>Error loading prices. Using sample data...</p>';
+                    this.displayPrices(this.getMockPricesSync(state, district));
+                });
+
+        } catch (error) {
+            console.error('Error loading prices:', error);
+            if (this.pricesGrid) {
+                this.pricesGrid.innerHTML = '<p>Error loading prices. Please try again.</p>';
+            }
+        }
+    }
+
+    fetchPricesFromServer(state, district) {
+        return fetch(`${this.apiUrl}/prices?state=${state}&district=${district}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Server error');
+                return res.json();
+            });
+    }
+
+    getMockPrices(state, district) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(this.getMockPricesSync(state, district));
+            }, 500);
+        });
+    }
+
+    getMockPricesSync(state, district) {
+        // Use pre-initialized mock data
+        const stateData = this.mockData[state] || {};
         let prices = [];
 
         if (district) {
@@ -252,7 +266,7 @@ class CropPricesManager {
 
         // Fallback: if no specific district prices, show state-wide
         if (!prices || prices.length === 0) {
-            prices = Object.values(stateData).flat() || mockData['tamil-nadu']['Chennai'] || [];
+            prices = Object.values(stateData).flat() || this.mockData['tamil-nadu']['Chennai'] || [];
         }
 
         return prices || [];
