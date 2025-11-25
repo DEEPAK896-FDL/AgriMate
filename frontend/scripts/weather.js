@@ -135,8 +135,8 @@ class WeatherManager {
             condition: 'Fair',
             icon: '☀️',
             uvIndex: 7,
-            pressure: 1013,
-            visibility: 10,
+            pressure: 1008 + Math.random() * 12,
+            visibility: 8 + Math.random() * 2,
             rainfall: 0,
             lastUpdated: new Date().toLocaleTimeString(),
             forecast: this.generateForecast()
@@ -148,18 +148,31 @@ class WeatherManager {
     getMockWeatherDataForCity(cityName) {
         // Provide mock weather for common Indian cities used in app
         const cityMap = {
-            'Chennai': { city: 'Chennai, Tamil Nadu', temperature: 28, humidity: 70, windSpeed: 12, condition: 'Partly Cloudy', icon: '⛅', uvIndex: 8, rainfall: 10 },
-            'Coimbatore': { city: 'Coimbatore, Tamil Nadu', temperature: 26, humidity: 65, windSpeed: 8, condition: 'Sunny', icon: '☀️', uvIndex: 7, rainfall: 0 },
-            'Madurai': { city: 'Madurai, Tamil Nadu', temperature: 30, humidity: 50, windSpeed: 6, condition: 'Sunny', icon: '☀️', uvIndex: 9, rainfall: 0 },
-            'Bangalore': { city: 'Bengaluru, Karnataka', temperature: 24, humidity: 60, windSpeed: 10, condition: 'Cloudy', icon: '⛅', uvIndex: 6, rainfall: 2 },
-            'Mysore': { city: 'Mysore, Karnataka', temperature: 25, humidity: 55, windSpeed: 8, condition: 'Fair', icon: '☀️', uvIndex: 6, rainfall: 1 },
-            'Mumbai': { city: 'Mumbai, Maharashtra', temperature: 29, humidity: 75, windSpeed: 14, condition: 'Humid', icon: '☀️', uvIndex: 7, rainfall: 5 },
-            'Pune': { city: 'Pune, Maharashtra', temperature: 27, humidity: 60, windSpeed: 9, condition: 'Sunny', icon: '☀️', uvIndex: 7, rainfall: 0 },
-            'Amritsar': { city: 'Amritsar, Punjab', temperature: 22, humidity: 55, windSpeed: 6, condition: 'Cool', icon: '☀️', uvIndex: 5, rainfall: 0 },
-            'Jaipur': { city: 'Jaipur, Rajasthan', temperature: 33, humidity: 30, windSpeed: 10, condition: 'Hot', icon: '☀️', uvIndex: 9, rainfall: 0 }
+            'Chennai': { city: 'Chennai, Tamil Nadu', temperature: 28, humidity: 70, windSpeed: 12, condition: 'Partly Cloudy', icon: '⛅', uvIndex: 8, rainfall: 10, visibility: 9, pressure: 1010 },
+            'Coimbatore': { city: 'Coimbatore, Tamil Nadu', temperature: 26, humidity: 65, windSpeed: 8, condition: 'Sunny', icon: '☀️', uvIndex: 7, rainfall: 0, visibility: 10, pressure: 1015 },
+            'Madurai': { city: 'Madurai, Tamil Nadu', temperature: 30, humidity: 50, windSpeed: 6, condition: 'Sunny', icon: '☀️', uvIndex: 9, rainfall: 0, visibility: 10, pressure: 1012 },
+            'Tiruppur': { city: 'Tiruppur, Tamil Nadu', temperature: 27, humidity: 60, windSpeed: 7, condition: 'Fair', icon: '☀️', uvIndex: 7, rainfall: 1, visibility: 10, pressure: 1013 },
+            'Erode': { city: 'Erode, Tamil Nadu', temperature: 28, humidity: 55, windSpeed: 8, condition: 'Sunny', icon: '☀️', uvIndex: 8, rainfall: 0, visibility: 10, pressure: 1014 },
+            'Salem': { city: 'Salem, Tamil Nadu', temperature: 29, humidity: 50, windSpeed: 9, condition: 'Sunny', icon: '☀️', uvIndex: 8, rainfall: 0, visibility: 10, pressure: 1013 },
+            'Bangalore': { city: 'Bengaluru, Karnataka', temperature: 24, humidity: 60, windSpeed: 10, condition: 'Cloudy', icon: '⛅', uvIndex: 6, rainfall: 2, visibility: 8, pressure: 1018 },
+            'Mysore': { city: 'Mysore, Karnataka', temperature: 25, humidity: 55, windSpeed: 8, condition: 'Fair', icon: '☀️', uvIndex: 6, rainfall: 1, visibility: 9, pressure: 1016 },
+            'Hubli': { city: 'Hubli, Karnataka', temperature: 26, humidity: 50, windSpeed: 9, condition: 'Sunny', icon: '☀️', uvIndex: 7, rainfall: 0, visibility: 10, pressure: 1015 },
+            'Mangalore': { city: 'Mangalore, Karnataka', temperature: 27, humidity: 72, windSpeed: 11, condition: 'Humid', icon: '☀️', uvIndex: 6, rainfall: 5, visibility: 8, pressure: 1012 },
+            'Mumbai': { city: 'Mumbai, Maharashtra', temperature: 29, humidity: 75, windSpeed: 14, condition: 'Humid', icon: '☀️', uvIndex: 7, rainfall: 5, visibility: 7, pressure: 1008 },
+            'Pune': { city: 'Pune, Maharashtra', temperature: 27, humidity: 60, windSpeed: 9, condition: 'Sunny', icon: '☀️', uvIndex: 7, rainfall: 0, visibility: 10, pressure: 1016 },
+            'Nagpur': { city: 'Nagpur, Maharashtra', temperature: 28, humidity: 55, windSpeed: 8, condition: 'Sunny', icon: '☀️', uvIndex: 8, rainfall: 0, visibility: 10, pressure: 1014 },
+            'Aurangabad': { city: 'Aurangabad, Maharashtra', temperature: 30, humidity: 45, windSpeed: 7, condition: 'Hot', icon: '☀️', uvIndex: 9, rainfall: 0, visibility: 10, pressure: 1013 },
+            'Amritsar': { city: 'Amritsar, Punjab', temperature: 22, humidity: 55, windSpeed: 6, condition: 'Cool', icon: '☀️', uvIndex: 5, rainfall: 0, visibility: 10, pressure: 1020 },
+            'Ludhiana': { city: 'Ludhiana, Punjab', temperature: 20, humidity: 50, windSpeed: 5, condition: 'Cool', icon: '☀️', uvIndex: 4, rainfall: 0, visibility: 10, pressure: 1021 },
+            'Jalandhar': { city: 'Jalandhar, Punjab', temperature: 21, humidity: 52, windSpeed: 6, condition: 'Cool', icon: '☀️', uvIndex: 5, rainfall: 0, visibility: 10, pressure: 1019 },
+            'Patiala': { city: 'Patiala, Punjab', temperature: 22, humidity: 48, windSpeed: 7, condition: 'Cool', icon: '☀️', uvIndex: 5, rainfall: 0, visibility: 10, pressure: 1020 },
+            'Jaipur': { city: 'Jaipur, Rajasthan', temperature: 33, humidity: 30, windSpeed: 10, condition: 'Hot', icon: '☀️', uvIndex: 9, rainfall: 0, visibility: 10, pressure: 1011 },
+            'Jodhpur': { city: 'Jodhpur, Rajasthan', temperature: 35, humidity: 25, windSpeed: 12, condition: 'Very Hot', icon: '☀️', uvIndex: 10, rainfall: 0, visibility: 10, pressure: 1010 },
+            'Ajmer': { city: 'Ajmer, Rajasthan', temperature: 32, humidity: 35, windSpeed: 8, condition: 'Hot', icon: '☀️', uvIndex: 9, rainfall: 0, visibility: 10, pressure: 1012 },
+            'Bikaner': { city: 'Bikaner, Rajasthan', temperature: 34, humidity: 28, windSpeed: 11, condition: 'Hot', icon: '☀️', uvIndex: 9, rainfall: 0, visibility: 10, pressure: 1009 }
         };
 
-        const base = cityMap[cityName] || { city: cityName, temperature: 26 + Math.random() * 6, humidity: 60 + Math.random() * 20, windSpeed: 8 + Math.random() * 10, condition: 'Fair', icon: '☀️', uvIndex: 6, rainfall: Math.random() * 10 };
+        const base = cityMap[cityName] || { city: cityName, temperature: 26 + Math.random() * 6, humidity: 60 + Math.random() * 20, windSpeed: 8 + Math.random() * 10, condition: 'Fair', icon: '☀️', uvIndex: 6, rainfall: Math.random() * 10, visibility: 9 + Math.random() * 1, pressure: 1010 + Math.random() * 10 };
 
         return {
             ...base,
