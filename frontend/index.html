@@ -1,0 +1,592 @@
+0<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimate - Smart Farming Support System</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- (Language toggle moved into nav to avoid overlap) -->
+
+    <!-- Voice Assistant Button (Bottom Right) -->
+    <button class="voice-assistant-btn" id="voiceBtn" title="Click to talk">
+        <i class="fas fa-microphone"></i>
+    </button>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-leaf"></i>
+                <span class="logo-text" data-en="Agrimate" data-ta="வேளாண்மை">Agrimate</span>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link" data-en="Home" data-ta="முகப்பு" data-hi="होम" data-te="హోమ్" data-kn="ಹೋಮ್">Home</a></li>
+                <li><a href="#prices" class="nav-link" data-en="Prices" data-ta="விலைகள்" data-hi="कीमतें" data-te="ధరలు" data-kn="ಬೆಲೆಗಳು">Prices</a></li>
+                <li><a href="#weather" class="nav-link" data-en="Weather" data-ta="வானிலை" data-hi="मौसम" data-te="వాతావరణం" data-kn="ಹವಾಮಾನ">Weather</a></li>
+                <li><a href="#schemes" class="nav-link" data-en="Schemes" data-ta="திட்டங்கள்" data-hi="योजनाएं" data-te="యోజనల" data-kn="ಯೋಜನೆಗಳು">Schemes</a></li>
+                <li><a href="#organic" class="nav-link" data-en="Organic" data-ta="இயற்கை" data-hi="जैविक" data-te="సేంద్రీయ" data-kn="ಸಸ್ಯತ್ವ">Organic</a></li>
+                <li><a href="#soil" class="nav-link" data-en="Soil Testing" data-ta="மண் பரிசோதனை" data-hi="मृदा परीक्षण" data-te=" మట్టి పరీక్ష" data-kn="ಮಣ್ಣು ಪರೀಕ್ಷೆ">Soil Testing</a></li>
+                <li><a href="#pest" class="nav-link" data-en="Pest Alert" data-ta="கீட விஷ" data-hi="कीट चेतावनी" data-te="పురుగు అలారం" data-kn="ಹುಳು ಎಚ್ಚರಿಕೆ">Pest Alert</a></li>
+                <li><a href="#marketplace" class="nav-link" data-en="Marketplace" data-ta="சந்தை" data-hi="बाजार" data-te="మార్కెట్" data-kn="ಮಾರ್ಕೆಟ್">Marketplace</a></li>
+                <li><a href="#loan" class="nav-link" data-en="Loan" data-ta="கடன்" data-hi="ऋण" data-te="రుణం" data-kn=" ಸಾಲ">Loan</a></li>
+                <li><a href="#calculator" class="nav-link" data-en="Calculator" data-ta="கணக்கு" data-hi="कैलकुलेटर" data-te="గణాంక యంత్రం" data-kn=" ಕ್ಯಾಲ್ಕುಲೇಟರ್">Calculator</a></li>
+                <li><a href="#helpline" class="nav-link" data-en="Helpline" data-ta="உதவி" data-hi="हेल्पलाइन" data-te="హెల్ప్‌లైన్" data-kn="హెల్ప్‌ಲೈನ್">Helpline</a></li>
+            </ul>
+            <!-- Language Toggle (placed inside nav-container to align with menu) -->
+            <div class="language-toggle">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="ta">தமிழ்</button>
+                <button class="lang-btn" data-lang="hi">हिन्दी</button>
+                <button class="lang-btn" data-lang="te">తెలుగు</button>
+                <button class="lang-btn" data-lang="kn">ಕನ್ನಡ</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title" data-en="Welcome to Agrimate" data-ta="Agrimate க்கு வரவேற்கிறோம்" data-hi="Agrimate में आपका स्वागत है" data-te="Agrimate కు స్వాగతం" data-kn="Agrimate ಗೆ ಸ್ವಾಗತ">
+                    Welcome to Agrimate
+                </h1>
+                <p class="hero-subtitle" data-en="Your Smart Farming Support System" data-ta="உங்கள் திறக்கும் வேளாண்மை ஆதரவு அமைப்பு" data-hi="आपकी स्मार्ट फार्मिंग सहायता प्रणाली" data-te="మీ స్మార్ట్ వ్యవసాయ మద్దతు వ్యవస్థ" data-kn="ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ಬೆಂಬಲ ವ್ಯವಸ್ಥೆ">
+                    Your Smart Farming Support System
+                </p>
+                <p class="hero-desc" data-en="Get real-time crop prices, weather, schemes, and expert guidance" data-ta="நிஜ நேர பயிர் விலைகள், வானிலை, திட்டங்கள் பெறுங்கள்" data-hi="वास्तविक समय की फसल कीमतें, मौसम, योजनाएँ और विशेषज्ञ मार्गदर्शन प्राप्त करें" data-te="నేరుగా రెయిల్ టైమ్ పంట ధరలు, వాతావరణం, పథకాలు మరియు నిపుణుల సూచనలు పొందండి" data-kn="ರಿಯಲ್-ಟೈಮ್ ಬೆಳೆ ಬೆಲೆಗಳು, ಹವಾಮಾನ, ಯೋಜನೆಗಳು ಮತ್ತು ತಜ್ಞ ಮಾರ್ಗದರ್ಶನ ಪಡೆಯಿರಿ">
+                    Get real-time crop prices, weather, schemes, and expert guidance
+                </p>
+                <button class="btn btn-primary" id="exploreBtn" data-en="Explore Features" data-ta="பண்புகளை ஆராயுங்கள்" data-hi="विशेषताएँ एक्सप्लोर करें" data-te="ఫీచర్లను అన్వేషించండి" data-kn="ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಅನ್ವೇಷಿಸಿ">
+                    Explore Features
+                </button>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-sprout"></i>
+            </div>
+        </section>
+
+        <!-- Crop Prices Section -->
+        <section id="prices" class="section">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Crop Prices" data-ta="பயிர் விலைகள்" data-hi="फसल की कीमतें" data-te="పంట ధరలు" data-kn="ಬೆಳೆ ಬೆಲೆಗಳು">Crop Prices</h2>
+                <p class="section-desc" data-en="Check current crop prices by state and district" data-ta="மாநிலம் மற்றும் மாவட்டம் மூலம் தற்போதைய பயிர் விலைகளைச் சரிபார்க்கவும்" data-hi="राज्य और जिले के अनुसार वर्तमान फसल कीमतें देखें" data-te="రాష్ట్రం మరియు జిల్లా ఆధారంగా ప్రస్తుత పంట ధరలను తనిఖీ చేయండి" data-kn="ರಾಜ್ಯ ಮತ್ತು ಜಿಲ್ಲೆ ಆಧಾರದಲ್ಲಿ ಪ್ರಸ್ತುತ ಬೆಳೆ ಬೆಲೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ">
+                    Check current crop prices by state and district
+                </p>
+                
+                <div class="filters">
+                    <select id="stateSelect" class="filter-input" data-en-placeholder="Select State" data-ta-placeholder="மாநிலம் தேர்ந்தெடுக்கவும்">
+                        <option value="" data-en="Select State" data-ta="மாநிலம் தேர்ந்தெடுக்கவும்" data-hi="राज्य चुनें" data-te="రాష్ట్రం ఎంచుకోండి" data-kn="ರಾಜ್ಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ">Select State</option>
+                        <option value="tamil-nadu" data-en="Tamil Nadu" data-ta="தமிழ்நாடு">Tamil Nadu</option>
+                        <option value="karnataka" data-en="Karnataka" data-ta="கர்நாटகா">Karnataka</option>
+                        <option value="maharashtra" data-en="Maharashtra" data-ta="மહारાष्ట्र">Maharashtra</option>
+                        <option value="punjab" data-en="Punjab" data-ta="பஞ்சாப்">Punjab</option>
+                        <option value="rajasthan" data-en="Rajasthan" data-ta="রাजस्थान">Rajasthan</option>
+                    </select>
+                    
+                    <select id="districtSelect" class="filter-input" data-en-placeholder="Select District" data-ta-placeholder="மாவட்டம் தேர்ந்தெடுக்கவும்">
+                        <option value="" data-en="Select District" data-ta="மாவட்டம் தேர்ந்தெடுக்கவும்">Select District</option>
+                    </select>
+                </div>
+
+                <div class="prices-grid" id="pricesGrid">
+                    <!-- Prices will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Section -->
+        <section id="weather" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Weather Update" data-ta="வானிலை புதுப்பிப்பு">Weather Update</h2>
+                <p class="section-desc" data-en="Real-time weather based on your location" data-ta="உங்கள் இருப்பிடத்தின் அடிப்படையில் நிஜ நேர வானிலை">
+                    Real-time weather based on your location
+                </p>
+                
+                <div class="filters">
+                    <select id="weatherStateSelect" class="filter-input" data-en-placeholder="Select State" data-ta-placeholder="மாநிலம் தேர்ந்தெடுக்கவும்">
+                        <option value="" data-en="Select State" data-ta="மாநிலம் தேர்ந்தெடுக்கவும்">Select State</option>
+                        <option value="tamil-nadu" data-en="Tamil Nadu" data-ta="தமிழ்நாடு">Tamil Nadu</option>
+                        <option value="karnataka" data-en="Karnataka" data-ta="கர்நாٹகா">Karnataka</option>
+                        <option value="maharashtra" data-en="Maharashtra" data-ta="மஹாராஷ்டிர">Maharashtra</option>
+                        <option value="punjab" data-en="Punjab" data-ta="பஞ்சாப்">Punjab</option>
+                        <option value="rajasthan" data-en="Rajasthan" data-ta="ராஜஸ்தான்">Rajasthan</option>
+                    </select>
+
+                    <select id="weatherDistrictSelect" class="filter-input" data-en-placeholder="Select District" data-ta-placeholder="மாவட்டம் தேர்ந்தெடுக்கவும்">
+                        <option value="" data-en="Select District" data-ta="மாவட்டம் தேர்ந்தெடுக்கவும்">Select District</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-secondary" id="getWeatherBtn" data-en="Get Weather" data-ta="வானிலை பெறுங்கள்">
+                    <i class="fas fa-location-dot"></i> Get Weather
+                </button>
+
+                <div class="weather-card" id="weatherCard">
+                    <div class="weather-skeleton">
+                        <p data-en="Loading..." data-ta="ஏற்றுதல்...">Loading...</p>
+                    </div>
+                </div>
+
+                <div class="forecast" id="forecastContainer">
+                    <!-- 5-day forecast will be loaded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Schemes Section -->
+        <section id="schemes" class="section">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Government Schemes" data-ta="அரசு திட்டங்கள்">Government Schemes</h2>
+                <p class="section-desc" data-en="Latest schemes and subsidies for farmers" data-ta="விவசாயிகளுக்கான சமீபத்திய திட்டங்கள் மற்றும் மானியங்கள்">
+                    Latest schemes and subsidies for farmers
+                </p>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="all-schemes" data-en="All Schemes" data-ta="அனைத்து திட்டங்கள்">
+                        All Schemes
+                    </button>
+                    <button class="tab-btn" data-tab="bookmarked" data-en="Bookmarked" data-ta="புத்தகக்குறி">
+                        Bookmarked (<span id="bookmarkCount">0</span>)
+                    </button>
+                </div>
+
+                <div class="tab-content" id="all-schemes">
+                    <div class="schemes-grid" id="schemesGrid">
+                        <!-- Schemes will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="bookmarked" style="display: none;">
+                    <div class="schemes-grid" id="bookmarkedGrid">
+                        <!-- Bookmarked schemes will be loaded -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Organic Farming Section -->
+        <section id="organic" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Organic Farming" data-ta="இயற்கை வேளாண்மை">Organic Farming</h2>
+                <p class="section-desc" data-en="Natural fertilizers and pest control methods" data-ta="இயற்கை உரங்கள் மற்றும் கீட கட்டுப்பாட்டு முறைகள்">
+                    Natural fertilizers and pest control methods
+                </p>
+
+                <div class="organic-grid">
+                    <div class="organic-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3 data-en="Fertilizers" data-ta="உரங்கள்">Fertilizers</h3>
+                        <p data-en="Compost, Neem powder, Vermicompost" data-ta="உரம், வேம் பொடி, பூச்சி உரம்">
+                            Compost, Neem powder, Vermicompost
+                        </p>
+                    </div>
+                    <div class="organic-card">
+                        <i class="fas fa-bug"></i>
+                        <h3 data-en="Pest Control" data-ta="கீட கட்டுப்பாடு">Pest Control</h3>
+                        <p data-en="Neem oil, Garlic spray, Chili extract" data-ta="வேம் எண்ணெய், பூண்டு தெளிப்பு, மிளகாய் சாறு">
+                            Neem oil, Garlic spray, Chili extract
+                        </p>
+                    </div>
+                    <div class="organic-card">
+                        <i class="fas fa-water"></i>
+                        <h3 data-en="Soil Care" data-ta="மண் பராமரிப்பு">Soil Care</h3>
+                        <p data-en="Mulching, Crop rotation, Green manure" data-ta="மல்ச், பயிர் சுழற்சி, பச்சை உரம்">
+                            Mulching, Crop rotation, Green manure
+                        </p>
+                    </div>
+                </div>
+
+                <div class="organic-details">
+                    <h3 data-en="Best Practices" data-ta="சிறந்த நடைமுறைகள்">Best Practices</h3>
+                    <ul class="practices-list">
+                        <li data-en="Use cow dung and farm waste for composting" data-ta="உரம் மற்றும் பண்ணை கழிவுக்கு பசு சாணம் பயன்படுத்தவும்">
+                            Use cow dung and farm waste for composting
+                        </li>
+                        <li data-en="Plant nitrogen-fixing crops to improve soil" data-ta="மண்ணை மேம்படுத்த நைட்ரஜன் நிலைநாட்டும் பயிர்களை நடவும்">
+                            Plant nitrogen-fixing crops to improve soil
+                        </li>
+                        <li data-en="Rotate crops annually to reduce pest pressure" data-ta="கீட அழுத்தத்தை குறைக்க ஆண்டுதோறும் பயிர்களை சுழற்றவும்">
+                            Rotate crops annually to reduce pest pressure
+                        </li>
+                        <li data-en="Use trap crops to divert pests naturally" data-ta="கீटங்களை இயற்கையாக திசை திருப்ப பொறி பயிர்களைப் பயன்படுத்தவும்">
+                            Use trap crops to divert pests naturally
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soil Testing Section -->
+        <section id="soil" class="section">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Soil Testing & Fertilizer" data-ta="மண் பரிசோதனை மற்றும் உரம்">Soil Testing & Fertilizer</h2>
+                <p class="section-desc" data-en="AI-powered soil analysis and fertilizer recommendations" data-ta="AI-চালিত মাটি বিশ্লেষণ এবং সার সুপারিশ">
+                    AI-powered soil analysis and fertilizer recommendations
+                </p>
+
+                <div class="soil-form">
+                    <div class="form-group">
+                        <label class="form-label" data-en="Soil pH Level" data-ta="மண் pH நிலை">Soil pH Level</label>
+                        <input type="number" id="soilPH" class="form-input" min="0" max="14" step="0.1" 
+                               placeholder="e.g., 6.5" data-en-placeholder="e.g., 6.5" data-ta-placeholder="எ.கா., 6.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Nitrogen Level (mg/kg)" data-ta="நைட్రஜન் স্তর (mg/kg)">Nitrogen Level (mg/kg)</label>
+                        <input type="number" id="nitrogen" class="form-input" min="0" step="1" 
+                               placeholder="e.g., 250" data-en-placeholder="e.g., 250" data-ta-placeholder="எ.கா., 250">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Phosphorus Level (mg/kg)" data-ta="பாஸ்பரஸ் நிலை (mg/kg)">Phosphorus Level (mg/kg)</label>
+                        <input type="number" id="phosphorus" class="form-input" min="0" step="1" 
+                               placeholder="e.g., 25" data-en-placeholder="e.g., 25" data-ta-placeholder="எ.கா., 25">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Potassium Level (mg/kg)" data-ta="பொட்டாசியம் நிலை (mg/kg)">Potassium Level (mg/kg)</label>
+                        <input type="number" id="potassium" class="form-input" min="0" step="1" 
+                               placeholder="e.g., 180" data-en-placeholder="e.g., 180" data-ta-placeholder="எ.கா., 180">
+                    </div>
+
+                    <button class="btn btn-primary" id="analyzeSoilBtn" data-en="Analyze Soil" data-ta="மண்ணை பகுப்பாய்வு செய்யுங்கள்">
+                        Analyze Soil
+                    </button>
+                </div>
+
+                <div class="soil-result" id="soilResult" style="display: none;">
+                    <h3 data-en="AI Recommendations" data-ta="AI பரிந்துரைகள்">AI Recommendations</h3>
+                    <div id="soilRecommendations"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pest & Disease Alert -->
+        <section id="pest" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Pest & Disease Alert" data-ta="கீட மற்றும் நோய் எச்சரிக்கை">Pest & Disease Alert</h2>
+                <p class="section-desc" data-en="Detect crop diseases with image recognition" data-ta="ছবি স्বীকৃতি সহ ফসল রোগ সনাক্ত করুন">
+                    Detect crop diseases with image recognition
+                </p>
+
+                <div class="pest-section">
+                    <h3 data-en="Common Pests & Diseases" data-ta="সাধারণ কীটপতঙ্গ এবং রোগ">Common Pests & Diseases</h3>
+                    <div class="pest-grid" id="pestGrid">
+                        <!-- Pest information will be loaded -->
+                    </div>
+                </div>
+
+                <div class="disease-upload">
+                    <h3 data-en="Disease Detection (Upload Image)" data-ta="রোগ সনাক্তকরণ (ছবি আপলোড করুন)">Disease Detection</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p data-en="Drag & drop image or click to upload" data-ta="ছবি টেনে আনুন বা আপলোড করতে ক্লিক করুন">
+                            Drag & drop image or click to upload
+                        </p>
+                        <input type="file" id="diseaseImage" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="diseaseResult" style="display: none;">
+                        <p data-en="Analysis Result" data-ta="বিশ্লেষণ ফলাফল">Analysis Result</p>
+                        <div id="diseaseAnalysis"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Farmer Marketplace -->
+        <section id="marketplace" class="section">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Farmer Marketplace" data-ta="விவசாயி சந்தை">Farmer Marketplace</h2>
+                <p class="section-desc" data-en="Buy and sell crops, seeds, and equipment" data-ta="ফসল, বীজ এবং সরঞ্জাম কিনুন এবং বিক্রি করুন">
+                    Buy and sell crops, seeds, and equipment
+                </p>
+
+                <div class="marketplace-tabs">
+                    <button class="market-tab-btn active" data-tab="market-sell" data-en="Sell Your Produce" data-ta="உங்கள் பொருளை விற்கவும்">
+                        Sell Your Produce
+                    </button>
+                    <button class="market-tab-btn" data-tab="market-browse" data-en="Browse Products" data-ta="பণ்যங்களை பிரவேசிக்கவும்">
+                        Browse Products
+                    </button>
+                </div>
+
+                <div class="market-tab-content" id="market-sell">
+                    <form class="sell-form">
+                        <div class="form-group">
+                            <label class="form-label" data-en="Product Type" data-ta="பொருளின் வகை">Product Type</label>
+                            <select id="productType" class="form-input">
+                                <option value="crop" data-en="Crop" data-ta="பயிர்">Crop</option>
+                                <option value="seeds" data-en="Seeds" data-ta="விதைகள்">Seeds</option>
+                                <option value="equipment" data-en="Equipment" data-ta="கருவிகள்">Equipment</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-en="Product Name" data-ta="பொருளின் பெயர்">Product Name</label>
+                            <input type="text" id="productName" class="form-input" placeholder="e.g., Rice, Wheat" 
+                                   data-en-placeholder="e.g., Rice, Wheat" data-ta-placeholder="எ.கா., அரிசி, கோதுமை">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-en="Quantity (Kg/Units)" data-ta="அளவு (Kg/Units)">Quantity (Kg/Units)</label>
+                            <input type="number" id="quantity" class="form-input" min="1" step="1" 
+                                   data-en-placeholder="e.g., 100" data-ta-placeholder="எ.கா., 100">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-en="Price per Unit" data-ta="ஒரு யூனிட்டுக்கு விலை">Price per Unit</label>
+                            <input type="number" id="pricePerUnit" class="form-input" min="0" step="0.01" 
+                                   data-en-placeholder="e.g., 25" data-ta-placeholder="எ.கா., 25">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-en="Description" data-ta="விவரணை">Description</label>
+                            <textarea id="productDesc" class="form-input" rows="3" 
+                                      placeholder="e.g., Fresh organic rice from farm" 
+                                      data-en-placeholder="e.g., Fresh organic rice from farm" 
+                                      data-ta-placeholder="எ.கா., பண்ணையிலிருந்து புதிய இயற்கை அரிசி"></textarea>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="listProductBtn" data-en="List Product" data-ta="பொருளை பட்டியலிட்டு">
+                            List Product
+                        </button>
+                    </form>
+                </div>
+
+                <div class="market-tab-content" id="market-browse" style="display: none;">
+                    <div class="marketplace-grid" id="marketplaceGrid">
+                        <!-- Products will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loan & Insurance -->
+        <section id="loan" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Loan & Crop Insurance" data-ta="கடன் மற்றும் ফসল保險">Loan & Crop Insurance</h2>
+                <p class="section-desc" data-en="Check eligibility and apply for schemes" data-ta="योग्यता जांचें और योजनाओं के लिए आवेदन करें">
+                    Check eligibility and apply for schemes
+                </p>
+
+                <div class="loan-schemes">
+                    <div class="loan-card">
+                        <h3 data-en="PM FASAL Bima Yojana" data-ta="PM फसल बीमा योजना">PM FASAL Bima Yojana</h3>
+                        <p data-en="Crop insurance scheme with subsidized premiums" data-ta="सब्सिडी प्रीमियम के साथ फसल बीमा योजना">
+                            Crop insurance scheme with subsidized premiums
+                        </p>
+                        <button class="btn btn-secondary" data-en="Learn More" data-ta="আরও জানুন">Learn More</button>
+                    </div>
+
+                    <div class="loan-card">
+                        <h3 data-en="Kisan Credit Card" data-ta="किसान क्रेडिट कार्ड">Kisan Credit Card</h3>
+                        <p data-en="Flexible credit facility for farmers" data-ta="किसानों के लिए लचीली ऋण सुविधा">
+                            Flexible credit facility for farmers
+                        </p>
+                        <button class="btn btn-secondary" data-en="Learn More" data-ta="আরও জানুন">Learn More</button>
+                    </div>
+
+                    <div class="loan-card">
+                        <h3 data-en="Agri Gold Loan" data-ta="कृषि गोल्ड ऋण">Agri Gold Loan</h3>
+                        <p data-en="Loans against agricultural land and produce" data-ta="कृषि भूमि और उपज के विरुद्ध ऋण">
+                            Loans against agricultural land and produce
+                        </p>
+                        <button class="btn btn-secondary" data-en="Learn More" data-ta="আরও জানুন">Learn More</button>
+                    </div>
+                </div>
+
+                <div class="eligibility-checklist">
+                    <h3 data-en="Eligibility Checklist" data-ta="योग्यता चेकलिस्ट">Eligibility Checklist</h3>
+                    <div class="checklist">
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="eligibility-check">
+                            <span data-en="Agricultural land ownership" data-ta="कृषि भूमि स्वामित्व">Agricultural land ownership</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="eligibility-check">
+                            <span data-en="Proof of income" data-ta="आय का सबूत">Proof of income</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="eligibility-check">
+                            <span data-en="Valid ID proof" data-ta="मान्य ID प्रमाण">Valid ID proof</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="eligibility-check">
+                            <span data-en="Bank account" data-ta="बैंक खाता">Bank account</span>
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" id="checkEligibilityBtn" data-en="Check Eligibility" data-ta="योग्यता की जांच करें">
+                        Check Eligibility
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crop Profitability Calculator -->
+        <section id="calculator" class="section">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Profitability Calculator" data-ta="लाभांश कैलकुलेटर">Profitability Calculator</h2>
+                <p class="section-desc" data-en="Calculate your crop profitability" data-ta="अपनी फसल की लाभजनकता की गणना करें">
+                    Calculate your crop profitability
+                </p>
+
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label class="form-label" data-en="Crop Name" data-ta="फसल का नाम">Crop Name</label>
+                        <input type="text" id="calcCrop" class="form-input" placeholder="e.g., Rice" 
+                               data-en-placeholder="e.g., Rice" data-ta-placeholder="उदा., चावल">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Farm Area (Acres)" data-ta="खेत का क्षेत्र (एकड़)">Farm Area (Acres)</label>
+                        <input type="number" id="calcArea" class="form-input" min="0.1" step="0.1" 
+                               data-en-placeholder="e.g., 2.5" data-ta-placeholder="उदा., 2.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Expected Yield (Kg)" data-ta="अपेक्षित उपज (किग्रा)">Expected Yield (Kg)</label>
+                        <input type="number" id="calcYield" class="form-input" min="0" step="1" 
+                               data-en-placeholder="e.g., 5000" data-ta-placeholder="उदा., 5000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Total Costs (₹)" data-ta="कुल लागत (₹)">Total Costs (₹)</label>
+                        <input type="number" id="calcCosts" class="form-input" min="0" step="100" 
+                               data-en-placeholder="e.g., 15000" data-ta-placeholder="उदा., 15000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Expected Price per Kg (₹)" data-ta="प्रति किग्रा अपेक्षित मूल्य (₹)">Expected Price per Kg (₹)</label>
+                        <input type="number" id="calcPrice" class="form-input" min="0" step="1" 
+                               data-en-placeholder="e.g., 25" data-ta-placeholder="उदा., 25">
+                    </div>
+
+                    <button class="btn btn-primary" id="calculateBtn" data-en="Calculate Profit" data-ta="लाभ की गणना करें">
+                        Calculate Profit
+                    </button>
+                </div>
+
+                <div class="calculator-result" id="calcResult" style="display: none;">
+                    <div class="result-card">
+                        <h3 data-en="Revenue" data-ta="राजस्व">Revenue</h3>
+                        <p class="result-value" id="resultRevenue">₹0</p>
+                    </div>
+                    <div class="result-card">
+                        <h3 data-en="Total Cost" data-ta="कुल लागत">Total Cost</h3>
+                        <p class="result-value" id="resultCost">₹0</p>
+                    </div>
+                    <div class="result-card">
+                        <h3 data-en="Profit" data-ta="मुनाफा">Profit</h3>
+                        <p class="result-value profit" id="resultProfit">₹0</p>
+                    </div>
+                    <div class="result-card">
+                        <h3 data-en="Profit Margin %" data-ta="लाभ मार्जिन %">Profit Margin %</h3>
+                        <p class="result-value" id="resultMargin">0%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Helpline & Services -->
+        <section id="helpline" class="section bg-light">
+            <div class="section-container">
+                <h2 class="section-title" data-en="Emergency & Services" data-ta="आपातकालीन और सेवाएं">Emergency & Services</h2>
+                <p class="section-desc" data-en="24/7 Emergency helpline and agriculture offices" data-ta="24/7 आपातकालीन हेल्पलाइन और कृषि कार्यालय">
+                    24/7 Emergency helpline and agriculture offices
+                </p>
+
+                <div class="helpline-grid">
+                    <div class="helpline-card">
+                        <i class="fas fa-phone"></i>
+                        <h3 data-en="National Helpline" data-ta="राष्ट्रीय हेल्पलाइन">National Helpline</h3>
+                        <p>1800-200-5050</p>
+                        <p class="small-text" data-en="24/7 agricultural support" data-ta="24/7 कृषि समर्थन">24/7 agricultural support</p>
+                    </div>
+
+                    <div class="helpline-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3 data-en="Email Support" data-ta="ईमेल समर्थन">Email Support</h3>
+                        <p>support@agrimate.gov.in</p>
+                        <p class="small-text" data-en="Response within 24 hours" data-ta="24 घंटे के भीतर प्रतिक्रिया">Response within 24 hours</p>
+                    </div>
+
+                    <div class="helpline-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3 data-en="Find Nearest Office" data-ta="निकटतम कार्यालय खोजें">Find Nearest Office</h3>
+                        <button class="btn btn-small" id="findOfficeBtn" data-en="Locate" data-ta="अवस्थिति">Locate</button>
+                        <div id="officesList"></div>
+                    </div>
+                </div>
+
+                <div class="seasonal-planning">
+                    <h3 data-en="Seasonal Crop Planning" data-ta="मौसमी फसल योजना">Seasonal Crop Planning</h3>
+                    <div class="season-tabs">
+                        <button class="season-tab-btn active" data-season="kharif" data-en="Kharif (Monsoon)" data-ta="खरीफ (मानसून)">
+                            Kharif
+                        </button>
+                        <button class="season-tab-btn" data-season="rabi" data-en="Rabi (Winter)" data-ta="रबी (सर्दी)">
+                            Rabi
+                        </button>
+                        <button class="season-tab-btn" data-season="summer" data-en="Summer" data-ta="गर्मी">
+                            Summer
+                        </button>
+                    </div>
+
+                    <div class="season-content" id="season-content">
+                        <!-- Season content will be loaded -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 data-en="About Agrimate" data-ta="Agrimate பற்றி">About Agrimate</h4>
+                <p data-en="Smart farming support system for Indian farmers" data-ta="இந்திய விவசாயிகளுக்கான சமூக விவசாய ஆதரவு அமைப்பு">
+                    Smart farming support system for Indian farmers
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4 data-en="Quick Links" data-ta="விரைவு இணைப்புகள்">Quick Links</h4>
+                <ul>
+                    <li><a href="#prices" data-en="Prices" data-ta="விலைகள்">Prices</a></li>
+                    <li><a href="#weather" data-en="Weather" data-ta="வானிலை">Weather</a></li>
+                    <li><a href="#schemes" data-en="Schemes" data-ta="திட்டங்கள்">Schemes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-en="Support" data-ta="ஆதரவு">Support</h4>
+                <ul>
+                    <li><a href="tel:1800200505" data-en="Call Us" data-ta="எங்களை அழையுங்கள்">Call Us</a></li>
+                    <li><a href="mailto:support@agrimate.gov.in" data-en="Email" data-ta="மின்னஞ்சல்">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-en="© 2024 Agrimate. All rights reserved." data-ta="© 2024 Agrimate. அனைத்து உரிமைகளும் பாதுகாப்பு">
+                © 2024 Agrimate. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/language.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/voiceAssistant.js"></script>
+    <script src="scripts/weather.js"></script>
+    <script src="scripts/cropPrices.js"></script>
+</body>
+</html>

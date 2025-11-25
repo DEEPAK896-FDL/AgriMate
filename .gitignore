@@ -1,0 +1,173 @@
+# AGRIMATE - Git Ignore File
+# Prevent committing sensitive files
+
+# ========================================
+# Environment Variables
+# ========================================
+.env
+.env.local
+.env.*.local
+
+# ========================================
+# Node Modules
+# ========================================
+node_modules/
+npm-debug.log
+npm-error.log
+yarn-error.log
+package-lock.json
+
+# ========================================
+# IDE & Editor
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.c9/
+*.sublime-workspace
+*.sublime-project
+
+# ========================================
+# OS Files
+# ========================================
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+*.log
+
+# ========================================
+# Build & Distribution
+# ========================================
+dist/
+build/
+.next/
+out/
+
+# ========================================
+# Cache & Temporary Files
+# ========================================
+.cache/
+tmp/
+temp/
+.tmp/
+*.tmp
+*.bak
+
+# ========================================
+# Database
+# ========================================
+*.db
+*.sqlite
+*.sqlite3
+data/
+dump.rdb
+
+# ========================================
+# Uploads
+# ========================================
+uploads/
+public/uploads/
+images/uploads/
+
+# ========================================
+# Logs
+# ========================================
+logs/
+*.log
+log.txt
+server.log
+
+# ========================================
+# Certificates & Keys
+# ========================================
+*.pem
+*.key
+*.cert
+*.crt
+certs/
+
+# ========================================
+# API Keys & Secrets
+# ========================================
+.secrets/
+*.secret
+config/secrets.json
+
+# ========================================
+# Test Coverage
+# ========================================
+coverage/
+.nyc_output/
+lcov.info
+
+# ========================================
+# Development Files
+# ========================================
+.eslintcache
+.stylelintcache
+.npmrc
+.yarn/
+
+# ========================================
+# VS Code Extensions
+# ========================================
+extensions.json
+
+# ========================================
+# Development Tools
+# ========================================
+.prettierignore
+.editorconfig
+
+# ========================================
+# Backup Files
+# ========================================
+*.backup
+*.bak
+*.swp
+*.swo
+
+# ========================================
+# System Specific
+# ========================================
+# macOS
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+ehthumbs.db
+desktop.ini
+
+# Linux
+.directory
+
+# ========================================
+# Docker
+# ========================================
+docker-compose.override.yml
+
+# ========================================
+# CI/CD
+# ========================================
+.github/workflows/*.yml
+.gitlab-ci.yml
+
+# ========================================
+# Version Control
+# ========================================
+.git/
+.hg/
+
+# Keep these important files
+!.gitkeep
+!.env.example
+!.eslintrc.json

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrimate - API Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .status-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .status-card h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .status-card .value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        .status-card.offline .value {
+            color: #e74c3c;
+        }
+        .api-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .api-section h2 {
+            color: #2ecc71;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #2ecc71;
+            padding-bottom: 10px;
+        }
+        .api-button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .api-button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        .response {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #2ecc71;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .response.error {
+            border-left-color: #e74c3c;
+            background: #fee;
+        }
+        .response.loading {
+            border-left-color: #f39c12;
+            background: #fef5e7;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .success {
+            color: #2ecc71;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        .loading {
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌾 Agrimate API Dashboard</h1>
+            <p>Live API Testing & Monitoring</p>
+        </div>
+
+        <div class="status">
+            <div class="status-card" id="backend-status">
+                <h3>Backend Server</h3>
+                <div class="value">Checking...</div>
+            </div>
+            <div class="status-card" id="db-status">
+                <h3>MongoDB Connection</h3>
+                <div class="value">Checking...</div>
+            </div>
+            <div class="status-card" id="crops-count">
+                <h3>Crops in Database</h3>
+                <div class="value">Checking...</div>
+            </div>
+            <div class="status-card" id="schemes-count">
+                <h3>Schemes in Database</h3>
+                <div class="value">Checking...</div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>🌾 Crop Management</h2>
+            <div class="button-group">
+                <button class="api-button" onclick="testAPI('/api/crops', 'Get All Crops')">Get All Crops</button>
+                <button class="api-button" onclick="testAPI('/api/crops/season', 'Get Crops by Season')">Get by Season</button>
+                <button class="api-button" onclick="testAPI('/api/prices?state=Tamil%20Nadu&district=Chennai', 'Get Prices')">Get Prices</button>
+            </div>
+            <div class="response" id="crops-response"></div>
+        </div>
+
+        <div class="api-section">
+            <h2>📋 Government Schemes</h2>
+            <div class="button-group">
+                <button class="api-button" onclick="testAPI('/api/schemes', 'Get All Schemes')">Get All Schemes</button>
+                <button class="api-button" onclick="testAPI('/api/schemes/state?state=Tamil%20Nadu', 'Get by State')">Get by State</button>
+                <button class="api-button" onclick="testAPI('/api/schemes/category?category=SUBSIDY', 'Get by Category')">Get by Category</button>
+            </div>
+            <div class="response" id="schemes-response"></div>
+        </div>
+
+        <div class="api-section">
+            <h2>👥 User Management</h2>
+            <div class="button-group">
+                <button class="api-button" onclick="testAPI('/api/users/profile?id=507f1f77bcf86cd799439011', 'Get User Profile')">Get User Profile</button>
+                <button class="api-button" onclick="testAPI('/api/users/stats', 'Get User Stats')">Get User Stats</button>
+            </div>
+            <div class="response" id="users-response"></div>
+        </div>
+
+        <div class="api-section">
+            <h2>💻 System Status</h2>
+            <div class="button-group">
+                <button class="api-button" onclick="testAPI('/api/health', 'Health Check')">Health Check</button>
+                <button class="api-button" onclick="checkAllEndpoints()">Test All Endpoints</button>
+            </div>
+            <div class="response" id="system-response"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000';
+
+        // Check system status on load
+        window.addEventListener('load', () => {
+            checkSystemStatus();
+        });
+
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                if (response.ok) {
+                    document.getElementById('backend-status').innerHTML = '<h3>Backend Server</h3><div class="value success">✓ Online</div>';
+                    document.getElementById('db-status').innerHTML = '<h3>MongoDB Connection</h3><div class="value success">✓ Connected</div>';
+                    
+                    // Get data counts
+                    try {
+                        const cropsResp = await fetch(`${API_BASE}/api/crops`);
+                        const cropsData = await cropsResp.json();
+                        const cropCount = Array.isArray(cropsData) ? cropsData.length : 0;
+                        document.getElementById('crops-count').innerHTML = `<h3>Crops in Database</h3><div class="value success">${cropCount} crops</div>`;
+                    } catch (e) {}
+
+                    try {
+                        const schemesResp = await fetch(`${API_BASE}/api/schemes`);
+                        const schemesData = await schemesResp.json();
+                        const schemeCount = Array.isArray(schemesData) ? schemesData.length : 0;
+                        document.getElementById('schemes-count').innerHTML = `<h3>Schemes in Database</h3><div class="value success">${schemeCount} schemes</div>`;
+                    } catch (e) {}
+                }
+            } catch (error) {
+                document.getElementById('backend-status').innerHTML = '<h3>Backend Server</h3><div class="value error">✗ Offline</div>';
+                document.getElementById('db-status').innerHTML = '<h3>MongoDB Connection</h3><div class="value error">✗ Not Connected</div>';
+            }
+        }
+
+        async function testAPI(endpoint, label) {
+            const responseDiv = document.querySelector('[data-endpoint="' + endpoint + '"]') || 
+                               document.querySelector('.response');
+            
+            // Find the correct response div
+            if (endpoint.includes('crops')) {
+                responseDiv = document.getElementById('crops-response');
+            } else if (endpoint.includes('schemes')) {
+                responseDiv = document.getElementById('schemes-response');
+            } else if (endpoint.includes('users')) {
+                responseDiv = document.getElementById('users-response');
+            } else {
+                responseDiv = document.getElementById('system-response');
+            }
+
+            responseDiv.textContent = 'Loading...';
+            responseDiv.className = 'response loading';
+
+            try {
+                const url = `${API_BASE}${endpoint}`;
+                console.log('Fetching:', url);
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                responseDiv.textContent = `✓ ${label}\n\n${JSON.stringify(data, null, 2)}`;
+                responseDiv.className = 'response success';
+            } catch (error) {
+                responseDiv.textContent = `✗ Error: ${error.message}`;
+                responseDiv.className = 'response error';
+            }
+        }
+
+        async function checkAllEndpoints() {
+            const endpoints = [
+                { url: '/api/health', label: 'Health Check' },
+                { url: '/api/crops', label: 'Get Crops' },
+                { url: '/api/schemes', label: 'Get Schemes' },
+                { url: '/api/prices?state=Tamil%20Nadu', label: 'Get Prices' },
+            ];
+
+            const systemDiv = document.getElementById('system-response');
+            systemDiv.textContent = 'Testing all endpoints...\n\n';
+            systemDiv.className = 'response loading';
+
+            let results = [];
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(`${API_BASE}${endpoint.url}`);
+                    const status = response.ok ? '✓' : '✗';
+                    results.push(`${status} ${endpoint.label}: ${response.status}`);
+                } catch (error) {
+                    results.push(`✗ ${endpoint.label}: ${error.message}`);
+                }
+            }
+
+            systemDiv.textContent = results.join('\n');
+            systemDiv.className = 'response';
+        }
+    </script>
+</body>
+</html>

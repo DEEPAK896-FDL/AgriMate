@@ -1,0 +1,33 @@
+{
+  "name": "agrimate",
+  "version": "1.0.0",
+  "description": "Agrimate - Smart Farming Support System for Indian Farmers",
+  "main": "backend/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "test": "node --version && npm --version",
+    "server": "node backend/server.js"
+  },
+  "keywords": [
+    "agriculture",
+    "farming",
+    "crops",
+    "prices",
+    "weather",
+    "schemes",
+    "india",
+    "smart-farming"
+  ],
+  "author": "Agrimate Team",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^4.14.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
