@@ -757,38 +757,58 @@ class AgrimateApp {
     }
 }
 
-// Initialize Agrimate App
-const agrimateApp = new AgrimateApp();
+// Initialize Agrimate App when DOM is ready
+let agrimateApp;
 
-// Setup tab functionality
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const tabId = btn.dataset.tab;
-        
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-
-        btn.classList.add('active');
-        const tabContent = document.getElementById(tabId);
-        if (tabContent) {
-            tabContent.classList.add('active');
-        }
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        agrimateApp = new AgrimateApp();
+        setupTabFunctionality();
+        console.log('✓ Main JavaScript loaded and initialized');
     });
-});
-
-// Set first tab as active
-document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
-    if (idx === 0) btn.classList.add('active');
-});
-
-document.querySelectorAll('.tab-content').forEach((tc, idx) => {
-    if (idx === 0) tc.classList.add('active');
-});
-
-// Check eligibility button
-const checkEligibilityBtn = document.getElementById('checkEligibilityBtn');
-if (checkEligibilityBtn) {
-    checkEligibilityBtn.addEventListener('click', () => agrimateApp.checkEligibility());
+} else {
+    agrimateApp = new AgrimateApp();
+    setupTabFunctionality();
+    console.log('✓ Main JavaScript already loaded');
 }
 
-console.log('✓ Main JavaScript loaded successfully');
+function setupTabFunctionality() {
+    try {
+        // Setup tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+                
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+                btn.classList.add('active');
+                const tabContent = document.getElementById(tabId);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+            });
+        });
+
+        // Set first tab as active
+        document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+            if (idx === 0) btn.classList.add('active');
+        });
+
+        document.querySelectorAll('.tab-content').forEach((tc, idx) => {
+            if (idx === 0) tc.classList.add('active');
+        });
+
+        // Check eligibility button
+        const checkEligibilityBtn = document.getElementById('checkEligibilityBtn');
+        if (checkEligibilityBtn) {
+            checkEligibilityBtn.addEventListener('click', () => {
+                if (agrimateApp) {
+                    agrimateApp.checkEligibility();
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error setting up tab functionality:', error);
+    }
+}
