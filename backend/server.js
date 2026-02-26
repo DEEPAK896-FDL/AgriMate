@@ -90,6 +90,26 @@ function router(req, res, pathname) {
             return userController.getUserStats(db)(req, res);
         }
 
+        // API Root - Show available endpoints
+        if (pathname === '/api' && req.method === 'GET') {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({
+                success: true,
+                message: 'AgriMate API',
+                version: '1.0.0',
+                status: 'running',
+                database: db ? 'connected' : 'disconnected',
+                endpoints: {
+                    health: 'GET /api/health',
+                    crops: 'GET /api/crops',
+                    prices: 'GET /api/prices',
+                    schemes: 'GET /api/schemes',
+                    users: 'POST /api/users'
+                }
+            }));
+            return;
+        }
+
         // Health check
         if (pathname === '/api/health' && req.method === 'GET') {
             res.writeHead(200, { 'Content-Type': 'application/json' });
